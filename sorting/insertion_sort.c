@@ -6,27 +6,20 @@
 double sort(int *list)
 {
     clock_t start = clock();
-    int tmp;
+    int tmp, n;
 
-    /*
-        Running total (LENGTH - 1) iterations.
-    */
-    for (int i = LEN - 1; i > 0; i--)
+    // (LENGTH - 1) iterations
+    for (int i = 1; i < LEN; i++)
     {
-        /*
-            If (j-1)th value is smaller than previous value, swaps two value.
-            Running (i) iterations.
-            ex) nth operation: comparing (LENGTH - n) times.
-        */
-        for (int j = 0; j < i; j++)
-        {
-            if (list[j + 1] >= list[j])
-                continue;
+        // set target data to list[i]
+        tmp = list[(n = i)];
 
-            tmp = list[j + 1];
-            list[j + 1] = list[j];
-            list[j] = tmp;
-        }
+        // until previous data is smaller than target data, push data
+        while (--n >= 0 && list[n] > tmp)
+            list[n + 1] = list[n];
+
+        // if a data is smaller than target data, put target data next to it
+        list[n + 1] = tmp;
     }
 
     clock_t end = clock();
